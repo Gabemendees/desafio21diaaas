@@ -108,7 +108,7 @@ function ThankYouPage() {
 
             <button
               type="button"
-              onClick={() => setStage("coach")}
+              onClick={() => setShowPhase2(false)}
               className="mt-3 w-full rounded-xl px-6 py-3 text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               Agora não, obrigado
@@ -117,7 +117,7 @@ function ThankYouPage() {
         ) : null}
 
         {/* 4) Upsell 2 — Coach 21 Dias */}
-        {stage === "coach" ? (
+        {showCoach ? (
           <section
             aria-labelledby="upsell-coach"
             className={cn(
@@ -168,7 +168,7 @@ function ThankYouPage() {
 
             <button
               type="button"
-              onClick={() => setStage("done")}
+              onClick={() => setShowCoach(false)}
               className="mt-3 w-full rounded-xl px-6 py-3 text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               Não, obrigado
