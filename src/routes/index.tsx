@@ -3,7 +3,7 @@ import { useState } from "react";
 import { CheckCircle2, Clock, Sparkles, Rocket } from "lucide-react";
 
 import coachCover from "@/assets/coach-21-dias.jpg";
-import phase2Cover from "@/assets/fase-2-avancado.jpg";
+import phase2Cover from "@/assets/fase-2-avancado.png.asset.json";
 import { cn } from "@/lib/utils";
 
 /** Links de checkout (Sunize) dos upsells. */
@@ -63,10 +63,10 @@ function ThankYouPage() {
           >
             <div className="flex flex-col gap-6 md:flex-row md:items-center md:gap-8">
               <img
-                src={phase2Cover}
+                src={phase2Cover.url}
                 alt="Pôster do programa Fase 2 Avançado"
                 width={1024}
-                height={1280}
+                height={1536}
                 loading="lazy"
                 className="mx-auto w-full max-w-[240px] rounded-xl object-contain md:mx-0 md:w-2/5 md:max-w-none md:shrink-0"
               />
