@@ -1,24 +1,172 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { CheckCircle2, Mail, FileDown, BookOpen, Clock, Sparkles } from "lucide-react";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+import coachCover from "@/assets/coach-21-dias.jpg";
+import { cn } from "@/lib/utils";
+
+/**
+ * Link do checkout do upsell (Sunize). Substitua pela URL real quando criada.
+ * Mantido como constante para evitar strings mágicas espalhadas no JSX.
+ */
+const UPSELL_CHECKOUT_URL = "#";
+
+const PAGE_TITLE = "Compra Confirmada — Desafio 21 Dias";
+const PAGE_DESCRIPTION =
+  "Seu acesso ao Desafio 21 Dias foi enviado por e-mail. Veja os próximos passos e conheça o Coach 21 Dias, seu suporte por IA 24h.";
+
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: PAGE_TITLE },
+      { name: "description", content: PAGE_DESCRIPTION },
+      { name: "robots", content: "noindex" },
+      { property: "og:title", content: PAGE_TITLE },
+      { property: "og:description", content: PAGE_DESCRIPTION },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: ThankYouPage,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+interface Step {
+  readonly title: string;
+  readonly description: string;
+  readonly icon: typeof Mail;
+}
+
+const STEPS: readonly Step[] = [
+  {
+    title: "Verifique seu e-mail",
+    description: "Use o mesmo e-mail informado na hora da compra.",
+    icon: Mail,
+  },
+  {
+    title: "Baixe seu guia em PDF",
+    description: "O link de download está dentro do e-mail de acesso.",
+    icon: FileDown,
+  },
+  {
+    title: 'Comece pelo "Como Usar Este Guia"',
+    description: "Está na página 3 — leia antes de iniciar o Dia 1.",
+    icon: BookOpen,
+  },
+];
+
+function ThankYouPage() {
+  const [showUpsell, setShowUpsell] = useState<boolean>(true);
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <main className="min-h-screen bg-background text-foreground">
+      <div className="mx-auto w-full max-w-3xl px-5 py-12 sm:py-16">
+        {/* 1) Confirmação de compra */}
+        <section className="text-center">
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-success/15 ring-4 ring-success/20">
+            <CheckCircle2 className="h-11 w-11 text-success" aria-hidden="true" />
+          </div>
+          <h1 className="mt-6 text-3xl font-extrabold tracking-tight sm:text-4xl">
+            Compra Confirmada! 🎉
+          </h1>
+          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
+            Seu acesso ao Desafio 21 Dias já foi enviado para o seu e-mail. Verifique sua
+            caixa de entrada (e a pasta de spam, caso não encontre em alguns minutos).
+          </p>
+        </section>
+
+        {/* 2) Instruções */}
+        <section aria-labelledby="proximos-passos" className="mt-12">
+          <h2 id="proximos-passos" className="text-lg font-bold sm:text-xl">
+            Próximos passos
+          </h2>
+          <ol className="mt-5 space-y-3">
+            {STEPS.map((step, index) => {
+              const Icon = step.icon;
+              return (
+                <li
+                  key={step.title}
+                  className="flex items-start gap-4 rounded-xl border border-border bg-card p-4"
+                >
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/15 text-sm font-bold text-primary">
+                    {index + 1}
+                  </span>
+                  <div className="min-w-0">
+                    <p className="flex items-center gap-2 font-semibold">
+                      <Icon className="h-4 w-4 text-accent" aria-hidden="true" />
+                      <span>{step.title}</span>
+                    </p>
+                    <p className="mt-1 text-sm text-muted-foreground">{step.description}</p>
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
+        </section>
+
+        {/* 3) Upsell — Coach 21 Dias */}
+        {showUpsell ? (
+          <section
+            aria-labelledby="upsell-coach"
+            className={cn(
+              "mt-14 overflow-hidden rounded-2xl border-2 border-premium/50",
+              "bg-gradient-to-b from-premium/15 to-card p-6 sm:p-8",
+            )}
+          >
+            <p className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-gold">
+              <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+              Oferta exclusiva
+            </p>
+
+            <h2 id="upsell-coach" className="mt-4 text-2xl font-extrabold sm:text-3xl">
+              Espera! Antes de você começar...
+            </h2>
+            <p className="mt-2 text-base font-semibold text-accent">
+              Que tal ter suporte 24h enquanto faz o desafio?
+            </p>
+
+            <img
+              src={coachCover}
+              alt="Capa do Coach 21 Dias, assistente por IA do desafio"
+              width={1024}
+              height={768}
+              loading="lazy"
+              className="mt-6 w-full rounded-xl border border-border object-cover"
+            />
+
+            <p className="mt-6 leading-relaxed text-muted-foreground">
+              Tire qualquer dúvida sobre seu treino ou dieta, a qualquer hora do dia, com o{" "}
+              <strong className="text-foreground">Coach 21 Dias</strong> — um assistente por
+              IA treinado especificamente no método do seu desafio. Sem esperar resposta, sem
+              depender de horário comercial.
+            </p>
+
+            <div className="mt-6 flex flex-wrap items-baseline gap-2">
+              <span className="text-4xl font-extrabold text-gold">R$17,90</span>
+              <span className="text-sm text-muted-foreground">pagamento único</span>
+            </div>
+
+            <a
+              href={UPSELL_CHECKOUT_URL}
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-4 text-base font-bold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              <Clock className="h-5 w-5" aria-hidden="true" />
+              Quero Meu Suporte 24h
+            </a>
+
+            <button
+              type="button"
+              onClick={() => setShowUpsell(false)}
+              className="mt-3 w-full rounded-xl px-6 py-3 text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              Não, obrigado
+            </button>
+          </section>
+        ) : null}
+
+        <footer className="mt-14 border-t border-border pt-6 text-center text-sm text-muted-foreground">
+          Não recebeu o e-mail em alguns minutos? Verifique o spam ou fale com nosso suporte.
+        </footer>
+      </div>
+    </main>
   );
 }
