@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { CheckCircle2, Mail, FileDown, BookOpen, Clock, Sparkles, Rocket } from "lucide-react";
+import { CheckCircle2, Mail, Clock, Sparkles, Rocket } from "lucide-react";
 
 import coachCover from "@/assets/coach-21-dias.jpg";
 import { cn } from "@/lib/utils";
@@ -28,35 +28,10 @@ export const Route = createFileRoute("/")({
   component: ThankYouPage,
 });
 
-interface Step {
-  readonly title: string;
-  readonly description: string;
-  readonly icon: typeof Mail;
-}
-
-const STEPS: readonly Step[] = [
-  {
-    title: "Verifique seu e-mail",
-    description: "Use o mesmo e-mail informado na hora da compra.",
-    icon: Mail,
-  },
-  {
-    title: "Baixe seu guia em PDF",
-    description: "O link de download está dentro do e-mail de acesso.",
-    icon: FileDown,
-  },
-  {
-    title: 'Comece pelo "Como Usar Este Guia"',
-    description: "Está na página 3 — leia antes de iniciar o Dia 1.",
-    icon: BookOpen,
-  },
-];
-
-/** Etapas do funil de upsell exibidas sequencialmente. */
-type UpsellStage = "phase2" | "coach" | "done";
-
 function ThankYouPage() {
-  const [stage, setStage] = useState<UpsellStage>("phase2");
+  const [showPhase2, setShowPhase2] = useState(true);
+  const [showCoach, setShowCoach] = useState(true);
+
 
   return (
     <main className="min-h-screen bg-background text-foreground">
