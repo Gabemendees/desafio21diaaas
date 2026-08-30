@@ -50,6 +50,7 @@
   --color-premium: var(--premium);
   --color-premium-foreground: var(--premium-foreground);
   --color-gold: var(--gold);
+  --color-cyan: var(--cyan);
   --color-ring-offset-background: var(--background);
 
   --color-chart-1: var(--chart-1);
@@ -93,6 +94,7 @@
   --premium: oklch(0.58 0.2 300);
   --premium-foreground: oklch(0.98 0.01 300);
   --gold: oklch(0.82 0.15 85);
+  --cyan: oklch(0.78 0.14 215);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
