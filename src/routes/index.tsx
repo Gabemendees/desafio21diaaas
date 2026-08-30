@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { CheckCircle2, Mail, FileDown, BookOpen, Clock, Sparkles, Rocket } from "lucide-react";
+import { CheckCircle2, Mail, Clock, Sparkles, Rocket } from "lucide-react";
 
 import coachCover from "@/assets/coach-21-dias.jpg";
 import { cn } from "@/lib/utils";
@@ -28,35 +28,10 @@ export const Route = createFileRoute("/")({
   component: ThankYouPage,
 });
 
-interface Step {
-  readonly title: string;
-  readonly description: string;
-  readonly icon: typeof Mail;
-}
-
-const STEPS: readonly Step[] = [
-  {
-    title: "Verifique seu e-mail",
-    description: "Use o mesmo e-mail informado na hora da compra.",
-    icon: Mail,
-  },
-  {
-    title: "Baixe seu guia em PDF",
-    description: "O link de download está dentro do e-mail de acesso.",
-    icon: FileDown,
-  },
-  {
-    title: 'Comece pelo "Como Usar Este Guia"',
-    description: "Está na página 3 — leia antes de iniciar o Dia 1.",
-    icon: BookOpen,
-  },
-];
-
-/** Etapas do funil de upsell exibidas sequencialmente. */
-type UpsellStage = "phase2" | "coach" | "done";
-
 function ThankYouPage() {
-  const [stage, setStage] = useState<UpsellStage>("phase2");
+  const [showPhase2, setShowPhase2] = useState(true);
+  const [showCoach, setShowCoach] = useState(true);
+
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -76,36 +51,22 @@ function ThankYouPage() {
         </section>
 
         {/* 2) Instruções */}
-        <section aria-labelledby="proximos-passos" className="mt-12">
-          <h2 id="proximos-passos" className="text-lg font-bold sm:text-xl">
-            Próximos passos
+        <section aria-labelledby="proximos-passos" className="mt-8">
+          <h2 id="proximos-passos" className="text-base font-bold">
+            Seu acesso já está a caminho
           </h2>
-          <ol className="mt-5 space-y-3">
-            {STEPS.map((step, index) => {
-              const Icon = step.icon;
-              return (
-                <li
-                  key={step.title}
-                  className="flex items-start gap-4 rounded-xl border border-border bg-card p-4"
-                >
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/15 text-sm font-bold text-primary">
-                    {index + 1}
-                  </span>
-                  <div className="min-w-0">
-                    <p className="flex items-center gap-2 font-semibold">
-                      <Icon className="h-4 w-4 text-accent" aria-hidden="true" />
-                      <span>{step.title}</span>
-                    </p>
-                    <p className="mt-1 text-sm text-muted-foreground">{step.description}</p>
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
+          <div className="mt-3 flex items-start gap-3 rounded-lg border border-border bg-card p-3">
+            <Mail className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+            <p className="text-sm leading-snug text-muted-foreground">
+              Confira seu e-mail (inclusive spam) — o link de download do seu guia já foi
+              enviado.
+            </p>
+          </div>
         </section>
 
         {/* 3) Upsell 1 — Fase 2 */}
-        {stage === "phase2" ? (
+        {showPhase2 ? (
+
           <section
             aria-labelledby="upsell-fase2"
             className={cn(
@@ -147,7 +108,7 @@ function ThankYouPage() {
 
             <button
               type="button"
-              onClick={() => setStage("coach")}
+              onClick={() => setShowPhase2(false)}
               className="mt-3 w-full rounded-xl px-6 py-3 text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               Agora não, obrigado
@@ -156,7 +117,7 @@ function ThankYouPage() {
         ) : null}
 
         {/* 4) Upsell 2 — Coach 21 Dias */}
-        {stage === "coach" ? (
+        {showCoach ? (
           <section
             aria-labelledby="upsell-coach"
             className={cn(
@@ -207,7 +168,7 @@ function ThankYouPage() {
 
             <button
               type="button"
-              onClick={() => setStage("done")}
+              onClick={() => setShowCoach(false)}
               className="mt-3 w-full rounded-xl px-6 py-3 text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               Não, obrigado
