@@ -51,36 +51,22 @@ function ThankYouPage() {
         </section>
 
         {/* 2) Instruções */}
-        <section aria-labelledby="proximos-passos" className="mt-12">
-          <h2 id="proximos-passos" className="text-lg font-bold sm:text-xl">
-            Próximos passos
+        <section aria-labelledby="proximos-passos" className="mt-8">
+          <h2 id="proximos-passos" className="text-base font-bold">
+            Seu acesso já está a caminho
           </h2>
-          <ol className="mt-5 space-y-3">
-            {STEPS.map((step, index) => {
-              const Icon = step.icon;
-              return (
-                <li
-                  key={step.title}
-                  className="flex items-start gap-4 rounded-xl border border-border bg-card p-4"
-                >
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/15 text-sm font-bold text-primary">
-                    {index + 1}
-                  </span>
-                  <div className="min-w-0">
-                    <p className="flex items-center gap-2 font-semibold">
-                      <Icon className="h-4 w-4 text-accent" aria-hidden="true" />
-                      <span>{step.title}</span>
-                    </p>
-                    <p className="mt-1 text-sm text-muted-foreground">{step.description}</p>
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
+          <div className="mt-3 flex items-start gap-3 rounded-lg border border-border bg-card p-3">
+            <Mail className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+            <p className="text-sm leading-snug text-muted-foreground">
+              Confira seu e-mail (inclusive spam) — o link de download do seu guia já foi
+              enviado.
+            </p>
+          </div>
         </section>
 
         {/* 3) Upsell 1 — Fase 2 */}
-        {stage === "phase2" ? (
+        {showPhase2 ? (
+
           <section
             aria-labelledby="upsell-fase2"
             className={cn(
