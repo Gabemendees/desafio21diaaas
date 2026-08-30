@@ -1,15 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { CheckCircle2, Mail, FileDown, BookOpen, Clock, Sparkles } from "lucide-react";
+import { CheckCircle2, Mail, FileDown, BookOpen, Clock, Sparkles, Rocket } from "lucide-react";
 
 import coachCover from "@/assets/coach-21-dias.jpg";
 import { cn } from "@/lib/utils";
 
-/**
- * Link do checkout do upsell (Sunize). Substitua pela URL real quando criada.
- * Mantido como constante para evitar strings mágicas espalhadas no JSX.
- */
-const UPSELL_CHECKOUT_URL = "#";
+/** Links de checkout (Sunize) dos upsells. */
+const PHASE2_CHECKOUT_URL = "https://pay.sunize.com.br/qxzSbpDv";
+const COACH_CHECKOUT_URL = "https://pay.sunize.com.br/DDQGzwvU";
 
 const PAGE_TITLE = "Compra Confirmada — Desafio 21 Dias";
 const PAGE_DESCRIPTION =
@@ -54,8 +52,11 @@ const STEPS: readonly Step[] = [
   },
 ];
 
+/** Etapas do funil de upsell exibidas sequencialmente. */
+type UpsellStage = "phase2" | "coach" | "done";
+
 function ThankYouPage() {
-  const [showUpsell, setShowUpsell] = useState<boolean>(true);
+  const [stage, setStage] = useState<UpsellStage>("phase2");
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -103,12 +104,63 @@ function ThankYouPage() {
           </ol>
         </section>
 
-        {/* 3) Upsell — Coach 21 Dias */}
-        {showUpsell ? (
+        {/* 3) Upsell 1 — Fase 2 */}
+        {stage === "phase2" ? (
+          <section
+            aria-labelledby="upsell-fase2"
+            className={cn(
+              "mt-14 animate-in fade-in duration-500 overflow-hidden rounded-2xl border-2 border-cyan/50",
+              "bg-gradient-to-b from-cyan/15 to-card p-6 sm:p-8",
+            )}
+          >
+            <p className="inline-flex items-center gap-2 rounded-full border border-cyan/40 bg-cyan/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-cyan">
+              <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+              Oferta exclusiva
+            </p>
+
+            <h2 id="upsell-fase2" className="mt-4 text-2xl font-extrabold sm:text-3xl">
+              Espera! Antes de você começar...
+            </h2>
+            <p className="mt-2 text-base font-semibold text-cyan">
+              Já pensou no que fazer depois de terminar?
+            </p>
+
+            <p className="mt-6 leading-relaxed text-muted-foreground">
+              A <strong className="text-foreground">Fase 2</strong> pega exatamente de onde
+              você vai parar: treino mais desafiador, novos exercícios e cardápio totalmente
+              renovado, pra você não perder o progresso que vai construir. Mesma estrutura que
+              já vai funcionar pra você, sem começar do zero.
+            </p>
+
+            <div className="mt-6 flex flex-wrap items-baseline gap-2">
+              <span className="text-4xl font-extrabold text-cyan">R$17,90</span>
+              <span className="text-sm text-muted-foreground">pagamento único</span>
+            </div>
+
+            <a
+              href={PHASE2_CHECKOUT_URL}
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-4 text-base font-bold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              <Rocket className="h-5 w-5" aria-hidden="true" />
+              Quero Desbloquear a Fase 2
+            </a>
+
+            <button
+              type="button"
+              onClick={() => setStage("coach")}
+              className="mt-3 w-full rounded-xl px-6 py-3 text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              Agora não, obrigado
+            </button>
+          </section>
+        ) : null}
+
+        {/* 4) Upsell 2 — Coach 21 Dias */}
+        {stage === "coach" ? (
           <section
             aria-labelledby="upsell-coach"
             className={cn(
-              "mt-14 overflow-hidden rounded-2xl border-2 border-premium/50",
+              "mt-14 animate-in fade-in duration-500 overflow-hidden rounded-2xl border-2 border-premium/50",
               "bg-gradient-to-b from-premium/15 to-card p-6 sm:p-8",
             )}
           >
@@ -118,7 +170,7 @@ function ThankYouPage() {
             </p>
 
             <h2 id="upsell-coach" className="mt-4 text-2xl font-extrabold sm:text-3xl">
-              Espera! Antes de você começar...
+              Mais uma coisa antes de você ir...
             </h2>
             <p className="mt-2 text-base font-semibold text-accent">
               Que tal ter suporte 24h enquanto faz o desafio?
@@ -141,12 +193,12 @@ function ThankYouPage() {
             </p>
 
             <div className="mt-6 flex flex-wrap items-baseline gap-2">
-              <span className="text-4xl font-extrabold text-gold">R$17,90</span>
+              <span className="text-4xl font-extrabold text-gold">R$11,90</span>
               <span className="text-sm text-muted-foreground">pagamento único</span>
             </div>
 
             <a
-              href={UPSELL_CHECKOUT_URL}
+              href={COACH_CHECKOUT_URL}
               className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-4 text-base font-bold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               <Clock className="h-5 w-5" aria-hidden="true" />
@@ -155,7 +207,7 @@ function ThankYouPage() {
 
             <button
               type="button"
-              onClick={() => setShowUpsell(false)}
+              onClick={() => setStage("done")}
               className="mt-3 w-full rounded-xl px-6 py-3 text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               Não, obrigado
