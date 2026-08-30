@@ -50,20 +50,6 @@ function ThankYouPage() {
           </p>
         </section>
 
-        {/* 2) Instruções */}
-        <section aria-labelledby="proximos-passos" className="mt-8">
-          <h2 id="proximos-passos" className="text-base font-bold">
-            Seu acesso já está a caminho
-          </h2>
-          <div className="mt-3 flex items-start gap-3 rounded-lg border border-border bg-card p-3">
-            <Mail className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
-            <p className="text-sm leading-snug text-muted-foreground">
-              Confira seu e-mail (inclusive spam) — o link de download do seu guia já foi
-              enviado.
-            </p>
-          </div>
-        </section>
-
         {/* 3) Upsell 1 — Fase 2 */}
         {showPhase2 ? (
 
