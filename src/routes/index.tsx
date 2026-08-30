@@ -60,45 +60,58 @@ function ThankYouPage() {
               "bg-gradient-to-b from-cyan/15 to-card p-6 sm:p-8",
             )}
           >
-            <p className="inline-flex items-center gap-2 rounded-full border border-cyan/40 bg-cyan/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-cyan">
-              <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-              Oferta exclusiva
-            </p>
+            <div className="flex flex-col gap-6 md:flex-row md:items-center md:gap-8">
+              <img
+                src={phase2Cover}
+                alt="Pôster do programa Fase 2 Avançado"
+                width={1024}
+                height={1280}
+                loading="lazy"
+                className="mx-auto w-full max-w-[240px] rounded-xl object-contain md:mx-0 md:w-2/5 md:max-w-none md:shrink-0"
+              />
 
-            <h2 id="upsell-fase2" className="mt-4 text-2xl font-extrabold sm:text-3xl">
-              Espera! Antes de você começar...
-            </h2>
-            <p className="mt-2 text-base font-semibold text-cyan">
-              Já pensou no que fazer depois de terminar?
-            </p>
+              <div className="md:flex-1">
+                <p className="inline-flex items-center gap-2 rounded-full border border-cyan/40 bg-cyan/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-cyan">
+                  <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+                  Oferta exclusiva
+                </p>
 
-            <p className="mt-6 leading-relaxed text-muted-foreground">
-              A <strong className="text-foreground">Fase 2</strong> pega exatamente de onde
-              você vai parar: treino mais desafiador, novos exercícios e cardápio totalmente
-              renovado, pra você não perder o progresso que vai construir. Mesma estrutura que
-              já vai funcionar pra você, sem começar do zero.
-            </p>
+                <h2 id="upsell-fase2" className="mt-4 text-2xl font-extrabold sm:text-3xl">
+                  Espera! Antes de você começar...
+                </h2>
+                <p className="mt-2 text-base font-semibold text-cyan">
+                  Já pensou no que fazer depois de terminar?
+                </p>
 
-            <div className="mt-6 flex flex-wrap items-baseline gap-2">
-              <span className="text-4xl font-extrabold text-cyan">R$17,90</span>
-              <span className="text-sm text-muted-foreground">pagamento único</span>
+                <p className="mt-6 leading-relaxed text-muted-foreground">
+                  A <strong className="text-foreground">Fase 2</strong> pega exatamente de onde
+                  você vai parar: treino mais desafiador, novos exercícios e cardápio
+                  totalmente renovado, pra você não perder o progresso que vai construir. Mesma
+                  estrutura que já vai funcionar pra você, sem começar do zero.
+                </p>
+
+                <div className="mt-6 flex flex-wrap items-baseline gap-2">
+                  <span className="text-4xl font-extrabold text-cyan">R$17,90</span>
+                  <span className="text-sm text-muted-foreground">pagamento único</span>
+                </div>
+
+                <a
+                  href={PHASE2_CHECKOUT_URL}
+                  className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-4 text-base font-bold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                >
+                  <Rocket className="h-5 w-5" aria-hidden="true" />
+                  Quero Desbloquear a Fase 2
+                </a>
+
+                <button
+                  type="button"
+                  onClick={() => setShowPhase2(false)}
+                  className="mt-3 w-full rounded-xl px-6 py-3 text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  Agora não, obrigado
+                </button>
+              </div>
             </div>
-
-            <a
-              href={PHASE2_CHECKOUT_URL}
-              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-4 text-base font-bold text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-            >
-              <Rocket className="h-5 w-5" aria-hidden="true" />
-              Quero Desbloquear a Fase 2
-            </a>
-
-            <button
-              type="button"
-              onClick={() => setShowPhase2(false)}
-              className="mt-3 w-full rounded-xl px-6 py-3 text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-            >
-              Agora não, obrigado
-            </button>
           </section>
         ) : null}
 
