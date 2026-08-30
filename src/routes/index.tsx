@@ -3,7 +3,7 @@ import { useState } from "react";
 import { CheckCircle2, Clock, Sparkles, Rocket } from "lucide-react";
 
 import coachCover from "@/assets/coach-21-dias.jpg";
-import phase2Cover from "@/assets/fase-2-avancado.jpg";
+import phase2Cover from "@/assets/fase-2-avancado.png.asset.json";
 import { cn } from "@/lib/utils";
 
 /** Links de checkout (Sunize) dos upsells. */
