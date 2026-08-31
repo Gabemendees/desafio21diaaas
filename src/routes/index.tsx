@@ -68,17 +68,8 @@ function ThankYouPage() {
               "bg-gradient-to-b from-cyan/15 to-card p-6 sm:p-8",
             )}
           >
-            <div className="flex flex-col gap-6 md:flex-row md:items-center md:gap-8">
-              <img
-                src={phase2Cover.url}
-                alt="Pôster do programa Fase 2 Avançado"
-                width={1024}
-                height={1536}
-                loading="lazy"
-                className="mx-auto h-auto w-[45%] max-w-[130px] self-center rounded-xl object-contain md:mx-0 md:w-[32%] md:max-w-[200px] md:shrink-0"
-              />
-
-              <div className="md:flex-1">
+            <div>
+              <div>
                 <p className="inline-flex items-center gap-2 rounded-full border border-cyan/40 bg-cyan/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-cyan">
                   <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
                   Oferta exclusiva
