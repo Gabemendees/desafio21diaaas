@@ -68,7 +68,7 @@ function ThankYouPage() {
                 width={1024}
                 height={1536}
                 loading="lazy"
-                className="mx-auto w-full max-w-[240px] rounded-xl object-contain md:mx-0 md:w-2/5 md:max-w-none md:shrink-0"
+                className="mx-auto h-auto w-full max-w-[140px] self-center rounded-xl object-contain md:mx-0 md:w-[32%] md:max-w-[220px] md:shrink-0"
               />
 
               <div className="md:flex-1">
@@ -132,7 +132,7 @@ function ThankYouPage() {
                 width={1024}
                 height={1536}
                 loading="lazy"
-                className="mx-auto w-full max-w-[240px] rounded-xl object-contain md:mx-0 md:w-2/5 md:max-w-none md:shrink-0"
+                className="mx-auto h-auto w-full max-w-[140px] self-center rounded-xl object-contain md:mx-0 md:w-[32%] md:max-w-[220px] md:shrink-0"
               />
 
               <div className="md:flex-1">
