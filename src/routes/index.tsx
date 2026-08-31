@@ -51,13 +51,20 @@ function ThankYouPage() {
           </p>
         </section>
 
+        {/* 2) Título da seção de ofertas */}
+        {showPhase2 || showCoach ? (
+          <h2 className="mt-16 mb-8 text-center text-2xl font-extrabold tracking-tight text-success sm:text-[1.75rem]">
+            Ofertas Especiais Pra Você
+          </h2>
+        ) : null}
+
         {/* 3) Upsell 1 — Fase 2 */}
         {showPhase2 ? (
 
           <section
             aria-labelledby="upsell-fase2"
             className={cn(
-              "mt-14 animate-in fade-in duration-500 overflow-hidden rounded-2xl border-2 border-cyan/50",
+              "animate-in fade-in duration-500 overflow-hidden rounded-2xl border-2 border-cyan/50",
               "bg-gradient-to-b from-cyan/15 to-card p-6 sm:p-8",
             )}
           >
@@ -68,7 +75,7 @@ function ThankYouPage() {
                 width={1024}
                 height={1536}
                 loading="lazy"
-                className="mx-auto h-auto w-full max-w-[140px] self-center rounded-xl object-contain md:mx-0 md:w-[32%] md:max-w-[220px] md:shrink-0"
+                className="mx-auto h-auto w-[45%] max-w-[130px] self-center rounded-xl object-contain md:mx-0 md:w-[32%] md:max-w-[200px] md:shrink-0"
               />
 
               <div className="md:flex-1">
@@ -132,7 +139,7 @@ function ThankYouPage() {
                 width={1024}
                 height={1536}
                 loading="lazy"
-                className="mx-auto h-auto w-full max-w-[140px] self-center rounded-xl object-contain md:mx-0 md:w-[32%] md:max-w-[220px] md:shrink-0"
+                className="mx-auto h-auto w-[45%] max-w-[130px] self-center rounded-xl object-contain md:mx-0 md:w-[32%] md:max-w-[200px] md:shrink-0"
               />
 
               <div className="md:flex-1">
