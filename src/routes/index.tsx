@@ -51,6 +51,13 @@ function ThankYouPage() {
           </p>
         </section>
 
+        {/* 2) Título da seção de ofertas */}
+        {showPhase2 || showCoach ? (
+          <h2 className="mt-16 mb-8 text-center text-2xl font-extrabold tracking-tight text-success sm:text-[1.75rem]">
+            Ofertas Especiais Pra Você
+          </h2>
+        ) : null}
+
         {/* 3) Upsell 1 — Fase 2 */}
         {showPhase2 ? (
 
